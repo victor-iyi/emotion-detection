@@ -63,6 +63,7 @@ class Features(object):
                         if gray:
                             img = img.convert(mode='L')
                         img = np.array(img, dtype=np.float32)
+                        print(img.shape)
                         if flatten:
                             img = img.flatten()
                         label = self.__create_labels(cls)
@@ -78,6 +79,15 @@ class Features(object):
             np.save(save_file, datasets)
         return datasets
 
+    def preprocess(img_path, resize=50, gray=False):
+        img = Image.open(img_path)
+        img = img.resize((resize, resize))
+        img = img.convert(mode='RGB')
+        if gray:
+            img = img.convert(mode='L')
+        img = np.array(img, dtype=np.float32)
+        return img
+    
     @staticmethod
     def train_test_split(dataset, test_size=0.1, **kwargs):
         """
@@ -97,11 +107,11 @@ class Features(object):
 
         train = dataset[:-test_size]
         test = dataset[-test_size:]
+
         train_X = np.array([x[0] for x in train], dtype=np.float32)
         train_y = np.array([x[1] for x in train], dtype=np.float32)
         test_X = np.array([x[0] for x in test], dtype=np.float32)
         test_y = np.array([x[1] for x in test], dtype=np.float32)
-        print(test_X[0].shape)
 
         if 'valid_portion' in kwargs:
             valid_portion = kwargs['valid_portion']
@@ -131,7 +141,7 @@ if __name__ == '__main__':
     datasets = features.create()
     train_X, train_y, test_X, test_y, val_X, val_y = features.train_test_split(datasets, valid_portion=0.1)
 
-    print('Training set -> {} {} {}'.format(train_X.shape, test_X.shape, val_X.shape))
+    print('Training set ->', train_X.shape, test_X.shape, val_X.shape)
     print('Testing set ->', train_y.shape, test_y.shape, val_y.shape)
 
     print('\nLength of training sets:\t\t{:,}'.format(len(train_y)))
