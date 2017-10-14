@@ -2,7 +2,7 @@
   @author Victor I. Afolabi
   A.I. Engineer & Software developer
   javafolabi@gmail.com
-  Created on 23 September, 2017 @ 7:06 PM.
+  Created on 13 October, 2017 @ 7:06 PM.
   Copyright © 2017. Victor. All rights reserved.
 """
 
@@ -17,9 +17,9 @@ from tqdm import tqdm
 
 
 class Features(object):
-    def __init__(self, data_dir='dataset/flowers', image_size=32):
+    def __init__(self, data_dir='datasets', image_size=50):
         """
-        Data pre-processing for flower classification.
+        Data pre-processing for emotion classification.
 
         :param data_dir:
                 Where the dataset is located.
@@ -28,7 +28,7 @@ class Features(object):
         """
         self.data_dir = data_dir
         self.image_size = image_size
-        self.flowers = [f for f in os.listdir(self.data_dir) if f[0] is not '.']
+        self.classes = [f for f in os.listdir(self.data_dir) if f[0] is not '.']
 
     def create(self, save=True, save_file='datasets.npy', gray=False, flatten=True):
         """
@@ -51,8 +51,8 @@ class Features(object):
         if os.path.isfile(save_file):
             return np.load(save_file)
         datasets = []
-        for flower in self.flowers:
-            image_dir = os.path.join(self.data_dir, flower)
+        for cls in self.classes:
+            image_dir = os.path.join(self.data_dir, cls)
             for image_file in tqdm(os.listdir(image_dir)):
                 if image_file[0] is not '.':
                     try:
@@ -64,7 +64,7 @@ class Features(object):
                         img = np.array(img, dtype=np.float32)
                         if flatten:
                             img = img.flatten()
-                        label = self.__create_labels(flower)
+                        label = self.__create_labels(cls)
                         datasets.append([img, label])
                     except Exception as e:
                         sys.stderr.write('{}'.format(e))
@@ -116,11 +116,11 @@ class Features(object):
 
         return np.array([train_X, train_y, test_X, test_y])
 
-    def __create_labels(self, flower):
-        labels = np.zeros(len(self.flowers), dtype=np.float32)
-        index = self.flowers.index(flower)
-        for f in self.flowers:
-            if flower == f:
+    def __create_labels(self, cls):
+        labels = np.zeros(len(self.classes), dtype=np.float32)
+        index = self.classes.index(cls)
+        for c in self.classes:
+            if cls == c:
                 labels[index] = 1.
         return labels
 
