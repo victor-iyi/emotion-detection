@@ -1,11 +1,16 @@
-# flower-classification
-Classification of flowers with a deep convolutional neural network.
+# emotion-detection
+Classification of human emotions with a deep convolutional neural network.
 
-Types of flowers
-+ Daisy
-+ Dandelion
-+ Rosses
-+ Sunflower
-+ Tulips
+Emotion classes
+* centerlight
+* glasses
+* leftlight
+* noglasses
+* normal
+* rightlight
+* sad
+* sleepy
+* surprised
+* wink
 
-> Five layer convolutional neural network with 3 fully connected layer and a regression/output layer
+The network consists of a five layer convolutional neural network with 3 fully connected layer and a regression/output layer
