@@ -1,7 +1,9 @@
 # emotion-detection
 Classification of human emotions with a deep convolutional neural network.
 
-Emotion classes
+
+## Emotion classes
+
 * centerlight
 * glasses
 * leftlight
