@@ -1,0 +1,13 @@
+### Python
+__pycache__
+.ipynb_checkpoints
+
+### Dataset
+datasets.npy
+
+
+### VSCode
+.vscode/*
+
+### Pycharm
+.idea/
