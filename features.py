@@ -28,9 +28,9 @@ class Features(object):
         """
         self.data_dir = data_dir
         self.image_size = image_size
-        self.classes = [f for f in os.listdir(self.data_dir) if f[0] is not '.']
+        self.classes = [c for c in os.listdir(self.data_dir) if c[0] is not '.']
 
-    def create(self, save=True, save_file='datasets.npy', gray=False, flatten=True):
+    def create(self, save=True, save_file='datasets.npy', gray=False, flatten=False):
         """
         Create dataset and optionally saves it into a numpy file.
 
@@ -59,8 +59,9 @@ class Features(object):
                         image_path = os.path.join(image_dir, image_file)
                         img = Image.open(image_path)
                         img = img.resize((self.image_size, self.image_size))
+                        img = img.convert(mode='RGB')
                         if gray:
-                            img = img.convert('L')
+                            img = img.convert(mode='L')
                         img = np.array(img, dtype=np.float32)
                         if flatten:
                             img = img.flatten()
