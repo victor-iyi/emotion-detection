@@ -29,24 +29,19 @@ def api(img=None):
         'msg': 'Unexpected argument. No image specified',
         'data': None
     }
-    
     if img:
         img = request.json('img')
         if upload_file(img, img.filename, app.config['UPLOAD_FOLDER']):
             # preprocess image
             features = Features(data_dir=config.DATASET_PATH)
             img_class = predict(img.filename)
-            
+            # Response
             response['status'] = True
             response['msg'] = 'Upload sucessful.'
             response['data'] = {
-                'img': img
+                'img': img,
                 'img_class': img_class
             }
         else:
             response['msg'] = 'Could not upload image'
     return jsonify(response)
-
-
-if __name__ == '__main__':
-    app.run(debug=True)
