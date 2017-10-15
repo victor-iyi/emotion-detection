@@ -19,7 +19,11 @@ The network consists of a five layer convolutional neural network with 3 fully c
 
 ## Requirements
 
-In order to run this fully. You need to pip install the following:
+In order to run the code. You need to `pip install` the following:
+
+```bash
+pip install <package-name>
+```
 
 * numpy
 * pandas
@@ -28,4 +32,5 @@ In order to run this fully. You need to pip install the following:
 * PIL or Pillow
 * tqdm
 
-For tensorflow installation visist the [tensorflow docs](https://www.tensorflow.org/install/) for your respective machine.
+Tensorflow's installation could be a bit over-head. If that's the case with you, visist the [tensorflow docs](https://www.tensorflow.org/install/) for detailed installation process for your operating system.
+
