@@ -23,7 +23,7 @@ def api(img=None):
         }
     }
     if img:
-        
+        img_file = request.json('img')
         return jsonify(response)
     else:
         return jsonify(response)
