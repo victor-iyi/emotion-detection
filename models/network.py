@@ -198,7 +198,8 @@ def eval_accuracy():
 def predict(img_path):
     img = feature.preprocess(img_path)
     _, y_pred_norm, y_pred_true = convnet()
-    _prob, _pred = sess.run([y_pred_norm, y_pred_true], feed_dict={X: img})
+    _pred = sess.run(y_pred_true, feed_dict={X: img})
+    return features.classes[_pred]
 
 
 if __name__ == '__main__':
