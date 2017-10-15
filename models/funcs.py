@@ -1,9 +1,7 @@
 import shutil
 import os
 
-from flask import flash
 from werkzeug import secure_filename
-
 
 from models import config
 
@@ -13,14 +11,13 @@ def allowed_file(filename):
 
 
 def upload_file(file, filename, upload_folder):
+    make_dir(upload_folder)
     filename = secure_filename(filename)
     if file and allowed_file(filename):
         path = os.path.join(upload_folder, filename)
         file.save(path)
         return True
-    else:
-        flash('Please use an image with valid image extension.')
-        return False
+    return False
 
 
 def make_dir(directory):
