@@ -1,3 +1,13 @@
+"""
+  @author Victor I. Afolabi
+  A.I. Engineer & Software developer
+  javafolabi@gmail.com
+  Created on 13 October, 2017 @ 3:37 PM.
+  Copyright © 2017. Victor. All rights reserved.
+"""
+
+# coding: utf-8
+
 import shutil
 import os
 

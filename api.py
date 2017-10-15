@@ -12,7 +12,8 @@ from flask import Flask, request, jsonify
 from werkzeug import secure_filename
 
 from models.features import Features
-from models.funcs import *
+from models.funcs import upload_file
+from models.network import predict
 from models import config
 
 
@@ -25,24 +26,25 @@ app.secret_key = config.SECRET_KEY
 def api(img=None):
     response = {
         'status': False,
-        'response': {
-            'msg': 'No image specified.',
-            'data': None
-        }
+        'msg': 'Unexpected argument. No image specified',
+        'data': None
     }
     
     if img:
         img = request.json('img')
-        if upload_file(image, image.filename, app.config['UPLOAD_FOLDER']):
-            features = Features()
-            response['status'] = True
-            response['response']['msg'] = ''
-            response['data'][''] = {
+        if upload_file(img, img.filename, app.config['UPLOAD_FOLDER']):
+            # preprocess image
+            features = Features(data_dir=config.DATASET_PATH)
+            img_class = predict(img.filename)
             
+            response['status'] = True
+            response['msg'] = 'Upload sucessful.'
+            response['data'] = {
+                'img': img
+                'img_class': img_class
             }
-            return jsonify(response)
-        return jsonify(response)
-    
+        else:
+            response['msg'] = 'Could not upload image'
     return jsonify(response)
 
 
